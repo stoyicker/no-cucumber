@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+    }
+
+    dependencies { classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.15") }
+}
+
+plugins { id "org.jetbrains.kotlin.jvm" version "1.2.10" }
+
+repositories {
+    jcenter()
+}
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
+    compileOnly project(":annotations")
+}
+
+apply plugin: "org.jetbrains.dokka"
+
+task customDokka(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = "html"
+    outputDirectory = "$buildDir/dokka"
+}
+
+task kotlinJavadocJar(type: Jar, dependsOn:customDokka) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Kotlin docs with Dokka"
+    classifier = "javadoc"
+    from "$buildDir/dokka"
+}
+
+task sourcesJar(type: Jar) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles a sources JAR"
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+apply plugin: "maven-publish"
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId "no-cucumber-processors"
+            groupId "com.github.stoyicker"
+            version = {
+                def stdout = new ByteArrayOutputStream()
+                exec {
+                    commandLine 'git', 'describe', '--tags'
+                    standardOutput = stdout
+                }
+                return stdout.toString().trim()
+            }()
+
+            from components.java
+        }
+    }
+}
+artifacts {
+    archives kotlinJavadocJar
+    archives sourcesJar
+}

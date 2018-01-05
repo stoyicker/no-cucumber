@@ -1,4 +1,4 @@
-package nocucumber
+package nocucumber.scenario
 
 /**
  * Defines a Cucumber scenario. Scenarios must be associated to a feature and contain one or more steps.

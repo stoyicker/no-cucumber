@@ -1,4 +1,4 @@
-package nocucumber
+package nocucumber.step
 
 /**
  * Defines a Cucumber step. Steps can be reused across different scenarios. The same test can correspond to
