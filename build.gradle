@@ -13,7 +13,7 @@ repositories {
     jcenter()
 }
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
 }
 
 apply plugin: "org.jetbrains.dokka"
@@ -39,6 +39,14 @@ task sourcesJar(type: Jar) {
 
 apply plugin: "maven"
 group = "com.github.stoyicker"
+version = {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'tag'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}()
 artifacts {
     archives kotlinJavadocJar
     archives sourcesJar
