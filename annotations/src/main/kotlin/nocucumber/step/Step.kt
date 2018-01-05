@@ -1,4 +1,4 @@
-package nocucumber
+package nocucumber.step
 
 /**
  * Defines a Cucumber step. Steps can be reused across different scenarios. The same test can correspond to
@@ -9,4 +9,4 @@ package nocucumber
 @Repeatable
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FUNCTION)
-annotation class Step(vararg val names: String)
+annotation class Step(val names: Array<String>)

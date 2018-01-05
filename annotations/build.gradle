@@ -38,16 +38,25 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-apply plugin: "maven"
-group = "com.github.stoyicker"
-version = {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-        standardOutput = stdout
+apply plugin: "maven-publish"
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId "no-cucumber-annotations"
+            groupId "com.github.stoyicker"
+            version = {
+                def stdout = new ByteArrayOutputStream()
+                exec {
+                    commandLine 'git', 'describe', '--tags'
+                    standardOutput = stdout
+                }
+                return stdout.toString().trim()
+            }()
+
+            from components.java
+        }
     }
-    return stdout.toString().trim()
-}()
+}
 artifacts {
     archives kotlinJavadocJar
     archives sourcesJar
