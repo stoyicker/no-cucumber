@@ -6,7 +6,6 @@ package nocucumber.step
  *
  * @property names The names of the step, as utilized from Gherkin.
  */
-@Repeatable
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FUNCTION)
 annotation class Step(val names: Array<String>)

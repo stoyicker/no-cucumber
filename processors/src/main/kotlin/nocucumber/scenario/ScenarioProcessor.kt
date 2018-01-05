@@ -15,7 +15,7 @@ import javax.tools.Diagnostic
  */
 class ScenarioProcessor : NoCucumberProcessor() {
     private val verifier by lazy { ScenarioVerifier(messager) }
-    private val writer by lazy { ScenarioWriter(filer) }
+    private val writer by lazy { ScenarioWriter(filer, messager) }
 
     override fun getSupportedAnnotationTypes() = mutableSetOf(ANNOTATION_CLASS.name)
 
@@ -24,7 +24,9 @@ class ScenarioProcessor : NoCucumberProcessor() {
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnv: RoundEnvironment): Boolean {
         roundEnv.getElementsAnnotatedWith(ANNOTATION_CLASS)?.forEach {
             if (verifier.verify<Scenario>(it)) {
-                // TODO Write scenario
+                if (!writer.writeScenario(it)) {
+                    return true
+                }
             }
         }
         return true
