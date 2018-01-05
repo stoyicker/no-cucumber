@@ -16,11 +16,17 @@ internal class ScenarioVerifier(messager: Messager) : AnnotationVerifier<Scenari
             err("Each scenario must belong to at least one feature", element)
             false
         }
+        annotation.featureNames.any {
+            it.replace(" ", "").matches(Regex.fromLiteral("[a-zA-Z]+"))
+        } -> {
+            err("Feature names can only contain simple letters and spaces", element)
+            false
+        }
         annotation.steps.isEmpty() -> {
             err("Each scenario must have at least one step", element)
             false
         }
-        element.kind !in arrayOf(ElementKind.CLASS, ElementKind.INTERFACE) -> {
+        element.kind !in arrayOf(ElementKind.INTERFACE) -> {
             err("Scenarios can only be defined in classes or interfaces", element)
             false
         }

@@ -24,15 +24,19 @@ internal class ScenarioWriter(private val filer: Filer, messager: Messager) : Lo
             return false
         }
         fileObject.openWriter().use {
-            it.append("Scenario: $name\n")
+            it.appendln("Feature: $featureName")
+            it.appendln()
+            it.appendln("  Scenario: $name")
             steps.forEach { step ->
-                it.append("  $step")
+                it.appendln("    $step")
             }
-            it.append("\n")
         }
         return true
     }
 
     private fun openFeatureFile(featureName: String) =
-            filer.createResource(StandardLocation.SOURCE_OUTPUT, "nocucumber", "$featureName.feature")
+            filer.createResource(
+                    StandardLocation.SOURCE_OUTPUT,
+                    "nocucumber",
+                    "${featureName.replace(" ", "_")}.feature")
 }
