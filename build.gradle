@@ -1,30 +1,45 @@
-group 'jorge'
-version '1.0-SNAPSHOT'
-
 buildscript {
-    ext.kotlin_version = '1.2.10'
-
     repositories {
-        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
     }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+
+    dependencies { classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.15") }
 }
 
-apply plugin: 'kotlin'
+plugins { id "org.jetbrains.kotlin.jvm" version "1.2.10" }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
-
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib"
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+apply plugin: "org.jetbrains.dokka"
+
+task customDokka(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = "html"
+    outputDirectory = "$buildDir/dokka"
 }
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+
+task kotlinJavadocJar(type: Jar, dependsOn:customDokka) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Kotlin docs with Dokka"
+    classifier = "javadoc"
+    from "$buildDir/dokka"
+}
+
+task sourcesJar(type: Jar) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles a sources JAR"
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+apply plugin: "maven"
+group = "com.github.stoyicker"
+artifacts {
+    archives kotlinJavadocJar
+    archives sourcesJar
 }
