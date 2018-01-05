@@ -14,6 +14,7 @@ repositories {
 }
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
+    compile "junit:junit:4.12"
 }
 
 apply plugin: "org.jetbrains.dokka"
