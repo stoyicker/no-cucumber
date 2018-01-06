@@ -18,7 +18,6 @@ dependencies {
 }
 
 apply plugin: "org.jetbrains.dokka"
-
 task customDokka(type: org.jetbrains.dokka.gradle.DokkaTask) {
     outputFormat = "html"
     outputDirectory = "$buildDir/dokka"

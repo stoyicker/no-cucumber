@@ -4,7 +4,10 @@ buildscript {
         jcenter()
     }
 
-    dependencies { classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.15") }
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.15")
+        classpath("com.gradle.publish:plugin-publish-plugin:0.9.9")
+    }
 }
 
 plugins { id "org.jetbrains.kotlin.jvm" version "1.2.10" }
@@ -13,8 +16,8 @@ repositories {
     jcenter()
 }
 dependencies {
+    compileOnly gradleApi()
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
-    compileOnly project(":annotations")
 }
 
 apply plugin: "org.jetbrains.dokka"
@@ -41,7 +44,7 @@ apply plugin: "maven-publish"
 publishing {
     publications {
         maven(MavenPublication) {
-            artifactId "no-cucumber-processors"
+            artifactId "no-cucumber-plugin"
             groupId "com.github.stoyicker"
             version = {
                 def stdout = new ByteArrayOutputStream()
@@ -60,3 +63,33 @@ artifacts {
     archives kotlinJavadocJar
     archives sourcesJar
 }
+
+
+// hack: plugin 'com.gradle.plugin-publish' is not visible by name
+apply plugin: com.gradle.publish.PublishPlugin
+
+pluginBundle {
+    website = "https://github.com/stoyicker/no-cucumber"
+    vcsUrl = "https://github.com/stoyicker/no-cucumber"
+    description = "A Gradle plugin to make Gherkin play nice with Espresso on Android"
+    plugins {
+        noCucumberAndroidPlugin {
+            id = "no-cucumber-android"
+            displayName = "no-cucumber Android Plugin"
+            tags = ["cucumber", "android"]
+            version = {
+                def stdout = new ByteArrayOutputStream()
+                exec {
+                    commandLine 'git', 'describe', '--tags'
+                    standardOutput = stdout
+                }
+                return stdout.toString().trim()
+            }()
+        }
+    }
+    mavenCoordinates {
+        groupId = "no-cucumber-plugin"
+        artifactId = "com.github.stoyicker"
+    }
+}
+
