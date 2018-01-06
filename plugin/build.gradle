@@ -1,11 +1,10 @@
 buildscript {
     repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.15")
         classpath("com.gradle.publish:plugin-publish-plugin:0.9.9")
     }
 }
@@ -18,19 +17,6 @@ repositories {
 dependencies {
     compileOnly gradleApi()
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
-}
-
-apply plugin: "org.jetbrains.dokka"
-task customDokka(type: org.jetbrains.dokka.gradle.DokkaTask) {
-    outputFormat = "html"
-    outputDirectory = "$buildDir/dokka"
-}
-
-task kotlinJavadocJar(type: Jar, dependsOn:customDokka) {
-    group = JavaBasePlugin.DOCUMENTATION_GROUP
-    description = "Assembles Kotlin docs with Dokka"
-    classifier = "javadoc"
-    from "$buildDir/dokka"
 }
 
 task sourcesJar(type: Jar) {
@@ -60,10 +46,8 @@ publishing {
     }
 }
 artifacts {
-    archives kotlinJavadocJar
     archives sourcesJar
 }
-
 
 // hack: plugin 'com.gradle.plugin-publish' is not visible by name
 apply plugin: com.gradle.publish.PublishPlugin
@@ -92,5 +76,3 @@ pluginBundle {
         artifactId = "com.github.stoyicker"
     }
 }
-
-apply from: rootProject.file("jitpack.gradle")
