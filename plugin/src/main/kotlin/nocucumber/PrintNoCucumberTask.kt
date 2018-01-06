@@ -14,13 +14,15 @@ internal class PrintNoCucumberTask : NoCucumberTask {
     }
 
     private fun jsonStepCollectionFile(project: Project) =
-            Paths.get(langSpecificPath(project), "nocucumber", "json", "steps.json").toFile()
+            Paths.get(langSpecificPath(project), "nocucumber", "json", "steps.json").toAbsolutePath().toFile()
 
     private fun langSpecificPath(project: Project): String {
-        val kotlinPath =
-                Paths.get(project.buildDir.absolutePath, "generated", "source", "kapt", "debugAndroidTest")
-        val javaPath =
-                Paths.get(project.buildDir.absolutePath, "generated", "source", "apt", "debugAndroidTest")
+        val kotlinPath = Paths.get(
+                project.buildDir.absolutePath, "generated", "source", "kapt", "debugAndroidTest")
+                .toAbsolutePath()
+        val javaPath = Paths.get(
+                project.buildDir.absolutePath, "generated", "source", "apt", "androidTest", "debug")
+                .toAbsolutePath()
         return if (kotlinPath.toFile().exists()) {
             kotlinPath
         } else {
