@@ -1,3 +1,4 @@
+@file:JvmName("Scenario")
 package nocucumber.scenario
 
 /**

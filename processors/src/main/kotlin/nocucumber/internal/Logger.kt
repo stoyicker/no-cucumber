@@ -1,3 +1,4 @@
+@file:JvmName("Logger")
 package nocucumber.internal
 
 import javax.annotation.processing.Messager

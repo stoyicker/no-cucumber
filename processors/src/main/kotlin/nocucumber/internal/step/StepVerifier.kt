@@ -1,3 +1,4 @@
+@file:JvmName("StepVerifier")
 package nocucumber.internal.step
 
 import nocucumber.internal.AnnotationVerifier

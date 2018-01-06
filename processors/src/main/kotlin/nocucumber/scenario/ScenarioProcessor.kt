@@ -1,3 +1,4 @@
+@file:JvmName("ScenarioProcessor")
 package nocucumber.scenario
 
 import nocucumber.internal.NoCucumberProcessor

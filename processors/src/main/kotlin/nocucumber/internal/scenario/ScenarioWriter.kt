@@ -1,3 +1,4 @@
+@file:JvmName("ScenarioWriter")
 package nocucumber.internal.scenario
 
 import nocucumber.internal.Logger

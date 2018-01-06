@@ -1,3 +1,4 @@
+@file:JvmName("NoCucumberAndroidPlugin")
 package nocucumber
 
 import org.gradle.api.Plugin

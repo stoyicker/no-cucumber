@@ -1,3 +1,4 @@
+@file:JvmName("JsonStep")
 package nocucumber.internal.step
 
 import com.squareup.moshi.Json

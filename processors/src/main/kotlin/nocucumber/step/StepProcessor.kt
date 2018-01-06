@@ -1,3 +1,4 @@
+@file:JvmName("StepProcessor")
 package nocucumber.step
 
 import nocucumber.internal.NoCucumberProcessor

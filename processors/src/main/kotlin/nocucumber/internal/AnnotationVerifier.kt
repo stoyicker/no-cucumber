@@ -1,3 +1,4 @@
+@file:JvmName("AnnotationVerifier")
 package nocucumber.internal
 
 import javax.annotation.processing.Messager

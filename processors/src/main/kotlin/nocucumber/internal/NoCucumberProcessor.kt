@@ -1,3 +1,4 @@
+@file:JvmName("NoCucumberProcessor")
 package nocucumber.internal
 
 import javax.annotation.processing.AbstractProcessor

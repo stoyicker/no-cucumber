@@ -1,9 +1,9 @@
+@file:JvmName("PrintNoCucumberTask")
 package nocucumber
 
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
-import java.nio.file.Path
 import java.nio.file.Paths
 
 internal class PrintNoCucumberTask : NoCucumberTask {

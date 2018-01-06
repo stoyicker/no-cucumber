@@ -1,3 +1,4 @@
+@file:JvmName("StepWriter")
 package nocucumber.internal.step
 
 import com.squareup.moshi.KotlinJsonAdapterFactory

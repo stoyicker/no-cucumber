@@ -1,3 +1,4 @@
+@file:JvmName("RunNoCucumberTask")
 package nocucumber
 
 import org.gradle.api.Project

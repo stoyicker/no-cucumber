@@ -1,3 +1,4 @@
+@file:JvmName("Step")
 package nocucumber.step
 
 /**
