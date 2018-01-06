@@ -17,6 +17,8 @@ repositories {
 dependencies {
     compileOnly gradleApi()
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.10"
+    compile "com.squareup.moshi:moshi-kotlin:1.5.0"
 }
 
 task sourcesJar(type: Jar) {

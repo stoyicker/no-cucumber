@@ -23,6 +23,7 @@ internal class StepWriter(private val elements: Elements, private val filer: Fil
     fun dumpStepsToFile() {
         openStepsFile().openWriter().use {
             it.write(Moshi.Builder()
+                    .add(JsonStepAdapter())
                     .add(KotlinJsonAdapterFactory())
                     .build().adapter(JsonStepCollection::class.java).toJson(stepCollection))
         }

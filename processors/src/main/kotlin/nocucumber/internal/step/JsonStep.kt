@@ -5,21 +5,17 @@ import java.util.*
 import javax.lang.model.element.Element
 import javax.lang.model.util.Elements
 
-internal class JsonStep private constructor(
+internal data class JsonStep (
         @Json(name = "step_name")
-        private val stepName: String,
+        val stepName: String,
         @Json(name = "name")
-        private val methodName: String,
+        val methodName: String,
         @Json(name ="classname")
-        private val className: String) {
-    companion object {
-        fun fromElement(stepName: String, element: Element, elements: Elements) =
-                JsonStep(stepName = ENCODER.encodeToString(stepName.toByteArray(Charsets.UTF_8)),
-                        methodName = ENCODER.encodeToString(element.simpleName.toString().toByteArray(Charsets.UTF_8)),
-                        className = ENCODER.encodeToString(
-                                "${elements.getPackageOf(element)}.${element.enclosingElement.simpleName}"
-                                        .toByteArray(Charsets.UTF_8)))
-    }
+        val className: String) {
+        companion object {
+                fun fromElement(stepName: String, element: Element, elements: Elements) = JsonStep(
+                        stepName = stepName,
+                        methodName = element.simpleName.toString(),
+                        className = "${elements.getPackageOf(element)}.${element.enclosingElement.simpleName}")
+        }
 }
-
-private val ENCODER = Base64.getEncoder()

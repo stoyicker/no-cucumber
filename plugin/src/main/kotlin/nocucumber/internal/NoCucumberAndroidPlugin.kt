@@ -1,4 +1,4 @@
-package nocucumber
+package nocucumber.internal
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
