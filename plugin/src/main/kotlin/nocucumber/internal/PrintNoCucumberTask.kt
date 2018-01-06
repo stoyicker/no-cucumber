@@ -10,19 +10,18 @@ import org.gradle.api.Task
 import java.nio.file.Paths
 
 internal class PrintNoCucumberTask : NoCucumberTask() {
-    private lateinit var stepCollection: JsonStepCollection
+    private var stepMap = mapOf<String, String>()
 
     override fun name() = "noCucumberPrint"
 
     override fun action() = { task: Task ->
-        stepCollection = Moshi.Builder()
+        Moshi.Builder()
                 .add(JsonStepAdapter())
                 .add(KotlinJsonAdapterFactory())
                 .build()
                 .adapter(JsonStepCollection::class.java)
-                .fromJson(jsonStepCollectionFile(task.project).readText(Charsets.UTF_8))!!
-        stepCollection.steps.forEach {
-            println(it)
+                .fromJson(jsonStepCollectionFile(task.project).readText(Charsets.UTF_8))!!.steps.forEach {
+            stepMap += "${it.className}#${it.methodName}" to it.stepName
         }
     }
 
