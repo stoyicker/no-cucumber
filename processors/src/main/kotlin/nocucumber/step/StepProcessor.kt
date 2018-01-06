@@ -6,6 +6,7 @@ import nocucumber.internal.step.StepWriter
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.TypeElement
+import javax.tools.Diagnostic
 
 /**
  * Generates steps as described by the processed annotations.
@@ -20,6 +21,8 @@ class StepProcessor : NoCucumberProcessor() {
 
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnv: RoundEnvironment): Boolean {
         roundEnv.getElementsAnnotatedWith(ANNOTATION_CLASS)?.forEach {
+            messager.printMessage(Diagnostic.Kind.NOTE,
+                    "Processing @Step from ${it.enclosingElement.simpleName}#${it.simpleName}")
             if (verifier.verify<Step>(it)) {
                 stepWriter.saveStep(it)
             }
