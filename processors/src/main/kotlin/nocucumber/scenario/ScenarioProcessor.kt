@@ -23,6 +23,8 @@ class ScenarioProcessor : NoCucumberProcessor() {
 
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnv: RoundEnvironment): Boolean {
         roundEnv.getElementsAnnotatedWith(ANNOTATION_CLASS)?.forEach {
+            messager.printMessage(Diagnostic.Kind.NOTE,
+                    "Processing @Scenario from ${it.enclosingElement.simpleName}#${it.simpleName}")
             if (verifier.verify<Scenario>(it)) {
                 if (!writer.writeScenario(it)) {
                     return true
