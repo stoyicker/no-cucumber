@@ -15,7 +15,7 @@ repositories {
 ```
 1. Add the annotations to your project:
 ```groovy
-androidTestImplementation "com.github.stoyicker.no-cucumber:no-cucumber-annotations:+"
+androidTestImplementation "com.github.stoyicker.no-cucumber:no-cucumber-annotations:+" // or androidTestImplementation if you use the apt from the Android plugin for Gradle
 ```
 2. Add some scenarios in your ```androidTest``` source set:
 ```kotlin
@@ -27,7 +27,7 @@ interface MyScenario
 ```
 3. Add the annotation processor to your project: 
 ```groovy
-kaptAndroidTest "com.github.stoyicker.no-cucumber:no-cucumber-processors:+"
+kaptAndroidTest "com.github.stoyicker.no-cucumber:no-cucumber-processors:+" // or androidTestAnnotationProcessor if you use the apt from the Android plugin for Gradle
 ```
 4. Add the plugin to your project:
 ```groovy
