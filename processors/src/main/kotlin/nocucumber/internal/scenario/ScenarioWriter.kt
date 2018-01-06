@@ -10,7 +10,7 @@ import javax.lang.model.element.Element
 import javax.tools.StandardLocation
 
 internal class ScenarioWriter(private val filer: Filer, messager: Messager) : Logger(messager) {
-    private val featureFileMap = mutableMapOf<String, File>()
+    private var featureFileMap = mapOf<String, File>()
 
     fun writeScenario(element: Element) = element.getAnnotation(Scenario::class.java).run {
         featureNames.map {
@@ -22,7 +22,7 @@ internal class ScenarioWriter(private val filer: Filer, messager: Messager) : Lo
         if (!featureFileMap.containsKey(featureName)) {
             try {
                 File(openFeatureFile(featureName).toUri()).run {
-                    featureFileMap.put(featureName, this)
+                    featureFileMap += featureName to this
                     parentFile.mkdirs()
                     writer(Charsets.UTF_8).use { it.appendln("Feature: $featureName") }
                 }
