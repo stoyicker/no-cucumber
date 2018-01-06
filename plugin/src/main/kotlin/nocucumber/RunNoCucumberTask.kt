@@ -9,7 +9,10 @@ internal class RunNoCucumberTask : NoCucumberTask {
     override fun apply(project: Project, task: Task) {
         with (project) {
             afterEvaluate {
-                task.setDependsOn(setOf(project.tasks.findByName("connectedAndroidTest")))
+                task.apply {
+                    setDependsOn(setOf(tasks.findByName("connectedAndroidTest")))
+                    finalizedBy(tasks.findByName("noCucumberPrint"))
+                }
             }
         }
     }

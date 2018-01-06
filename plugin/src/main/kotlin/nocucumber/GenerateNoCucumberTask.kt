@@ -9,8 +9,8 @@ internal class GenerateNoCucumberTask : NoCucumberTask {
     override fun apply(project: Project, task: Task) {
         with (project) {
             afterEvaluate {
-                task.finalizedBy(project.tasks.findByName("kaptDebugAndroidTestKotlin") ?:
-                        project.tasks.getByName("generateDebugAndroidTestSources"))
+                task.finalizedBy(tasks.findByName("kaptDebugAndroidTestKotlin") ?:
+                        tasks.getByName("generateDebugAndroidTestSources"))
             }
         }
     }
