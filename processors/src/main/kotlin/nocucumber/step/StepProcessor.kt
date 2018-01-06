@@ -21,8 +21,9 @@ class StepProcessor : NoCucumberProcessor() {
 
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnv: RoundEnvironment): Boolean {
         roundEnv.getElementsAnnotatedWith(ANNOTATION_CLASS)?.forEach {
-            messager.printMessage(Diagnostic.Kind.NOTE,
+            messager.printMessage(Diagnostic.Kind.ERROR,
                     "Processing @Step from ${it.enclosingElement.simpleName}#${it.simpleName}")
+            return true
             if (verifier.verify<Step>(it)) {
                 stepWriter.saveStep(it)
             }
