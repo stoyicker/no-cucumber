@@ -3,10 +3,16 @@ package nocucumber
 import org.gradle.api.Project
 import org.gradle.api.Task
 
-interface NoCucumberTask {
-    fun name(): String
+abstract class NoCucumberTask {
+    abstract fun name(): String
 
-    fun apply(project: Project) = apply(project, project.task(name()))
+    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") // False positive, avoids warning about ambiguity in return type
+    fun apply(project: Project) = project.task(name()).apply {
+        configuration(this)
+        doFirst(action())
+    }!!
 
-    fun apply(project: Project, task: Task)
+    open fun configuration(task: Task) {}
+
+    open fun action(): ((Task) -> Unit) = { }
 }

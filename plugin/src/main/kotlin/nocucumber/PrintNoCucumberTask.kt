@@ -3,15 +3,12 @@ package nocucumber
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
-import java.nio.file.Path
 import java.nio.file.Paths
 
-internal class PrintNoCucumberTask : NoCucumberTask {
+internal class PrintNoCucumberTask : NoCucumberTask() {
     override fun name() = "noCucumberPrint"
 
-    override fun apply(project: Project, task: Task) {
-        System.out.println("Applying PrintNoCucumberTask")
-    }
+    override fun action() = { _: Task -> System.out.println("Applying PrintNoCucumberTask") }
 
     private fun jsonStepCollectionFile(project: Project) =
             Paths.get(langSpecificPath(project), "nocucumber", "json", "steps.json").toAbsolutePath().toFile()
