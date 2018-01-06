@@ -20,7 +20,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             artifactId "no-cucumber-annotations"
-            groupId "com.github.stoyicker"
+            groupId "com.github.stoyicker.no-cucumber"
             version = {
                 def stdout = new ByteArrayOutputStream()
                 exec {
