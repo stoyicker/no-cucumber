@@ -23,6 +23,11 @@ internal class StepVerifier(messager: Messager) : AnnotationVerifier<Step>(messa
             err("Step elements must be annotated with @${Test::class.java.canonicalName}", element)
             false
         }
+        annotation.names.any { it.contains('\n')} -> {
+            err("Step names cannot contain newline chars (${annotation.names.first { it.contains('\n') }})",
+                    element)
+            false
+        }
         annotation.names.any { it in stepsFound.keys } -> {
             val step = annotation.names.first { it in stepsFound.keys }
             err("Step $step already added by ${stepsFound[step]!!.apply {
