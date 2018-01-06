@@ -19,12 +19,12 @@ internal class JsonStepAdapter {
     @FromJson
     fun fromJson(source: String) = baseAdapter.fromJson(source)?.run { JsonStep(
             stepName = Base64Coder.decode(stepName),
-            methodName = Base64Coder.decode(className),
+            methodName = Base64Coder.decode(methodName),
             className = Base64Coder.decode(className))
     }
 }
 
-private object Base64Coder {
+internal object Base64Coder {
     private val encoder = Base64.getEncoder()
     private val decoder = Base64.getDecoder()
 
