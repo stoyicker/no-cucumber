@@ -60,3 +60,5 @@ artifacts {
     archives kotlinJavadocJar
     archives sourcesJar
 }
+
+apply from: rootProject.file("jitpack.gradle")

@@ -1,0 +1,4 @@
+// Needed by JitPack
+task install {
+  dependsOn ':annotations:build', ':annotations:publishToMavenLocal', ':processors:build', ':processors:publishToMavenLocal', ':plugin:build', ':plugin:publishToMavenLocal'
+}

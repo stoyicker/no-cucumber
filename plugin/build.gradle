@@ -93,3 +93,4 @@ pluginBundle {
     }
 }
 
+apply from: rootProject.file("jitpack.gradle")
