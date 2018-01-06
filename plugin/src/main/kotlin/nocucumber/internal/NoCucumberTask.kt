@@ -8,6 +8,7 @@ abstract class NoCucumberTask {
 
     @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") // False positive, avoids warning about ambiguity in return type
     fun apply(project: Project) = project.task(name()).apply {
+        group = "android"
         configuration(this)
         doFirst(action())
     }!!
