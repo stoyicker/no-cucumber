@@ -45,7 +45,7 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
             if (javaPath.toFile().exists()) {
                 javaPath
             } else {
-                throw GradleException("Did not found Kotlin or Java generated source folders")
+                throw GradleException("Did not find Kotlin or Java generated source folders")
             }
         }.toAbsolutePath().toString()
     }
