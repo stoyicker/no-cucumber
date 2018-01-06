@@ -29,9 +29,21 @@ interface MyScenario
 ```groovy
 kaptAndroidTest "com.github.stoyicker:no-cucumber-processors:+"
 ```
-4. Make the magic happen:
+4. Add the plugin to your project:
+```groovy
+buildscript {
+	repositories {
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath "com.github.stoyicker:no-cucumber-plugin:+"
+    }
+}
+apply plugin: 'no-cucumber-android'
 ```
-./gradlew kaptDebugAndroidTestKotlin
+5. Make the magic happen:
 ```
-5. Look for the generated ```.feature``` files in in ```build/generated/source/kapt/debugAndroidTest/nocucumber```
+./gradlew noCucumberGenerate (or nCG for short)
+```
+6. Look for the generated ```.feature``` files in ```build/generated/source/kapt/debugAndroidTest/nocucumber```
 (or corresponding path if your project uses Java instead)!
