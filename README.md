@@ -15,7 +15,7 @@ repositories {
 ```
 1. Add the annotations to your project:
 ```groovy
-androidTestImplementation "com.github.stoyicker:no-cucumber-annotations:+"
+androidTestImplementation "com.github.stoyicker.no-cucumber:no-cucumber-annotations:+"
 ```
 2. Add some scenarios in your ```androidTest``` source set:
 ```kotlin
@@ -27,7 +27,7 @@ interface MyScenario
 ```
 3. Add the annotation processor to your project: 
 ```groovy
-kaptAndroidTest "com.github.stoyicker:no-cucumber-processors:+"
+kaptAndroidTest "com.github.stoyicker.no-cucumber:no-cucumber-processors:+"
 ```
 4. Add the plugin to your project:
 ```groovy
@@ -36,7 +36,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath "com.github.stoyicker:no-cucumber-plugin:+"
+        classpath "com.github.stoyicker.no-cucumber:no-cucumber-plugin:+"
     }
 }
 apply plugin: 'no-cucumber-android'
