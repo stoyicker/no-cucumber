@@ -14,14 +14,6 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
 
     override fun name() = "noCucumberPrint"
 
-    override fun configuration(task: Task) {
-        with (task.project) {
-            afterEvaluate {
-                task.setDependsOn(setOf(tasks.getByName("noCucumberGenerate")))
-            }
-        }
-    }
-
     override fun action() = { task: Task ->
         stepCollection = Moshi.Builder()
                 .add(JsonStepAdapter())
