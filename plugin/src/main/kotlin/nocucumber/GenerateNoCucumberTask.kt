@@ -10,7 +10,7 @@ internal class GenerateNoCucumberTask : NoCucumberTask {
         with (project) {
             afterEvaluate {
                 task.finalizedBy(tasks.findByName("kaptDebugAndroidTestKotlin") ?:
-                        tasks.getByName("generateDebugAndroidTestSources"))
+                        tasks.getByName("compileDebugAndroidTestJavaWithJavac"))
             }
         }
     }
