@@ -1,6 +1,7 @@
 package nocucumber.step
 
 import nocucumber.internal.NoCucumberProcessor
+import nocucumber.internal.StepIdToNameMap
 import nocucumber.internal.step.StepVerifier
 import nocucumber.internal.step.StepWriter
 import javax.annotation.processing.RoundEnvironment

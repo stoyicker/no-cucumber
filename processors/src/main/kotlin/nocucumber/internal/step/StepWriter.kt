@@ -3,6 +3,7 @@ package nocucumber.internal.step
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import nocucumber.internal.Logger
+import nocucumber.internal.StepIdToNameMap
 import nocucumber.step.Step
 import javax.annotation.processing.Filer
 import javax.annotation.processing.Messager
@@ -16,7 +17,12 @@ internal class StepWriter(private val elements: Elements, private val filer: Fil
 
     fun saveStep(element: Element) = element.getAnnotation(Step::class.java).run {
         names.forEach {
-            saveStep(JsonStep.fromElement(it, element, elements))
+            JsonStep.fromElement(it, element, elements).apply {
+                ids.forEach {
+                    StepIdToNameMap[it] = names[ids.indexOf(it)]
+                }
+                saveStep(this)
+            }
         }
     }
 

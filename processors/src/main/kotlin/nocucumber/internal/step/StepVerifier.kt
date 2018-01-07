@@ -8,7 +8,7 @@ import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
 
 internal class StepVerifier(messager: Messager) : AnnotationVerifier<Step>(messager) {
-    private var stepsFound = mapOf<String, Element>()
+    private var stepIdsFound = mapOf<String, Element>()
 
     override fun verify(element: Element, annotation: Step) = when {
         annotation.names.filterNot { it.isBlank() }.isEmpty() -> {
@@ -23,19 +23,18 @@ internal class StepVerifier(messager: Messager) : AnnotationVerifier<Step>(messa
             err("Step elements must be annotated with @${Test::class.java.canonicalName}", element)
             false
         }
-        annotation.names.any { it.contains('\n')} -> {
-            err("Step names cannot contain newline chars (${annotation.names.first { it.contains('\n') }})",
-                    element)
+        annotation.ids.size != annotation.names.size -> {
+            err("Steps must have as many ids as names", element)
             false
         }
-        annotation.names.any { it in stepsFound.keys } -> {
-            val step = annotation.names.first { it in stepsFound.keys }
-            err("Step $step already added by ${stepsFound[step]!!.apply {
+        annotation.ids.any { it in stepIdsFound.keys } -> {
+            val step = annotation.ids.first { it in stepIdsFound.keys }
+            err("Step with id $step already added by ${stepIdsFound[step]!!.apply {
                 "${enclosingElement.simpleName}#$simpleName"}}}", element)
             false
         }
         else -> {
-            annotation.names.forEach { stepsFound += it to element }
+            annotation.ids.forEach { stepIdsFound += it to element }
             true
         }
     }

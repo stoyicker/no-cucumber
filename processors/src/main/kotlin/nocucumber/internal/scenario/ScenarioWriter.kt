@@ -1,6 +1,7 @@
 package nocucumber.internal.scenario
 
 import nocucumber.internal.Logger
+import nocucumber.internal.StepIdToNameMap
 import nocucumber.scenario.Scenario
 import java.io.File
 import java.io.FileWriter
@@ -14,11 +15,17 @@ internal class ScenarioWriter(private val filer: Filer, messager: Messager) : Lo
 
     fun writeScenario(element: Element) = element.getAnnotation(Scenario::class.java).run {
         featureNames.map {
-            writeScenario(name, it, steps, element)
+            val stepId = StepIdToNameMap[stepId]
+            if (stepId == null) {
+                err("Step for id $stepId not found", element)
+                false
+            } else {
+                writeScenario(name, it, stepId, element)
+            }
         }.fold(true) { old, new -> old && new }
     }
 
-    private fun writeScenario(name: String, featureName: String, steps: Array<String>, element: Element): Boolean {
+    private fun writeScenario(name: String, featureName: String, step: String, element: Element): Boolean {
         if (!featureFileMap.containsKey(featureName)) {
             try {
                 File(openFeatureFile(featureName).toUri()).run {
@@ -40,9 +47,7 @@ internal class ScenarioWriter(private val filer: Filer, messager: Messager) : Lo
             else -> FileWriter(featureFile, true).use {
                 it.appendln()
                 it.appendln("  Scenario: $name")
-                steps.forEach { step ->
-                    it.appendln("    $step")
-                }
+                it.appendln("    $step")
             }
         }
         return true

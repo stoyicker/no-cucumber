@@ -22,10 +22,6 @@ internal class ScenarioVerifier(messager: Messager) : AnnotationVerifier<Scenari
             err("Feature names can only contain simple letters and spaces", element)
             false
         }
-        annotation.steps.isEmpty() -> {
-            err("Each scenario must have at least one step", element)
-            false
-        }
         element.kind !in arrayOf(ElementKind.INTERFACE) -> {
             err("Scenarios can only be defined in classes or interfaces", element)
             false
