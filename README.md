@@ -43,7 +43,7 @@ apply plugin: 'no-cucumber-android'
 ```
 5. Make the magic happen:
 ```
-./gradlew cAT noCucumberPrint
+./gradlew cAT noCucumberPrint --continue
 ```
 no-cucumber will generate your .feature files (look for them in your generated source folder) and then parse the XML 
 reports from Espresso, the feature files and a generated mapping between @Steps and Espresso tests, and use the combined 
