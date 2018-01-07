@@ -43,15 +43,18 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
         }
         testReportFiles(task.project).forEach { parsedTestReports += testReportParser.parse(it) }
         NoCucumberReportGenerator(features, stepMap).run {
-            parsedTestReports.forEach {
-                println(fromParsed(it))
-            }
+            parsedTestReports.forEach { fromParsed(it).dumpToFile(
+                    Paths.get(testReportFolderPath(task.project).toAbsolutePath().toString(),
+                            "${it.properties.first { it.name == "device" }.value}.txt").toFile()) }
         }
     }
 
-    private fun testReportFiles(project: Project) = Paths.get(
+    private fun testReportFiles(project: Project) = testReportFolderPath(project).toFile()
+            .listFiles { _, name -> name.endsWith(".xml") }
+
+    private fun testReportFolderPath(project: Project) = Paths.get(
             project.buildDir.absolutePath, "outputs", "androidTest-results", "connected")
-            .toAbsolutePath().toFile().listFiles { _, name -> name.endsWith(".xml") }
+            .toAbsolutePath()
 
     private fun jsonStepCollectionFile(project: Project) =
             Paths.get(packagePath(project), "json", "steps.json").toAbsolutePath().toFile()
