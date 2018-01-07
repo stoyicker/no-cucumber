@@ -30,7 +30,7 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
                 .build()
                 .adapter(JsonStepCollection::class.java)
                 .fromJson(jsonStepCollectionFile(task.project).readText(Charsets.UTF_8))!!.steps.forEach {
-            stepMap += "${it.className}#${it.methodName}" to it.stepName
+            stepMap += it.stepName to "${it.className}#${it.methodName}"
         }
         File(packagePath(task.project)).list { _, name -> name.endsWith(".feature") }.forEach {
             features = (features + featureParser.fromFile(
