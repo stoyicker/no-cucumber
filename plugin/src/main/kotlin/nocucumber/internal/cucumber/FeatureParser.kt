@@ -11,7 +11,9 @@ internal class FeatureParser {
         source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEachIndexed { index, it ->
             println("Line: $it")
             when {
-                index == size - 1 -> {
+                // readLines skips the last line if it is empty, which it is in our case, so the actual last is the one
+                // before
+                index == size - 2 -> {
                     // Last line, build the ongoing scenario
                     println("Last line, scenario name is $ongoingScenarioName and step is $ongoingStepName")
                     scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
