@@ -15,11 +15,12 @@ import java.io.File
 import java.nio.file.Paths
 
 internal class PrintNoCucumberTask : NoCucumberTask() {
-
     override fun name() = "noCucumberPrint"
 
     override fun configuration(task: Task) {
-        task.setDependsOn(setOf(task.project.getTasksByName("connectedAndroidTest", false)))
+        task.project.afterEvaluate {
+            task.setDependsOn(setOf("connectedAndroidTest"))
+        }
     }
 
     override fun action() = { task: Task ->
