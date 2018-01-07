@@ -9,5 +9,6 @@ internal data class ParsedTestReportProperty(
         var name: String,
         @field:Attribute(name = "value")
         var value: String) {
+    @Suppress("unused")
     constructor() : this("", "")
 }

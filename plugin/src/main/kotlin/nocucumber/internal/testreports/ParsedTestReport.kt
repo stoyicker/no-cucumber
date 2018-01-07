@@ -5,7 +5,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementArray
 import org.simpleframework.xml.Root
 
-@Root(name = "testsuite")
+@Root(name = "testsuite", strict = false)
 internal data class ParsedTestReport(
         @field:Attribute(name = "timestamp")
         var timestamp: Float,
