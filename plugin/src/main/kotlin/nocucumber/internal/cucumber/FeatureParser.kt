@@ -9,10 +9,6 @@ internal class FeatureParser {
         var scenarios = listOf<Scenario>()
         var ongoingScenarioName: String? = null
         var ongoingStepName: String? = null
-        println("Steps in map: ${stepMap.size}")
-        stepMap.forEach {
-            println("${it.key} to ${it.value}")
-        }
         source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEach { it ->
             when {
                 it.isBlank() || it.startsWith("#") -> {
@@ -39,11 +35,8 @@ internal class FeatureParser {
         return Feature(featureName!!, scenarios)
     }
 
-    private fun buildScenario(scenarioName: String, stepName: String, stepMap: Map<String, String>): Scenario {
-        val stepMethod = stepMap[stepName]
-        if (stepMethod == null) {
-            throw GradleException("Could not find a mapped method for step $stepName")
-        }
-        return Scenario(scenarioName, Step(stepMethod))
-    }
+    private fun buildScenario(scenarioName: String, stepName: String, stepMap: Map<String, String>)= Scenario(
+            scenarioName,
+            Step(stepMap[stepName] ?:
+                    throw GradleException("Could not find a mapped method for step $stepName")))
 }
