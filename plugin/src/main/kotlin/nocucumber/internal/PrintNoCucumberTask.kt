@@ -35,6 +35,7 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
         File(packagePath(task.project)).list { _, name -> name.endsWith(".feature") }.forEach {
             features = (features + featureParser.fromFile(File(it), stepMap)).sortedBy { it.name }
         }
+        features.forEach { println(it) }
     }
 
     private fun jsonStepCollectionFile(project: Project) =
