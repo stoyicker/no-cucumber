@@ -9,7 +9,7 @@ internal class ParsedTestReportTestCase(
         @field:Attribute(name = "classname")
         var className: String,
         @field:Attribute(name = "time")
-        var durationMs: Float,
+        var durationSeconds: Float,
         @field:Element(name = "failure", required = false)
         var failure: String?) {
         @Suppress("unused")

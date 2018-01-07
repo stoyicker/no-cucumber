@@ -1,3 +1,3 @@
 package nocucumber.internal.cucumber
 
-internal class Scenario(private val name: String, private val step: Step)
+internal class Scenario(val name: String, val step: Step)

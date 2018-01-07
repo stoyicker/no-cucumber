@@ -6,6 +6,7 @@ import nocucumber.internal.cucumber.Feature
 import nocucumber.internal.cucumber.FeatureParser
 import nocucumber.internal.step.JsonStepAdapter
 import nocucumber.internal.step.JsonStepCollection
+import nocucumber.internal.testreports.NoCucumberReportGenerator
 import nocucumber.internal.testreports.ParsedTestReport
 import nocucumber.internal.testreports.XmlTestReportParser
 import org.gradle.api.GradleException
@@ -38,9 +39,14 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
             stepMap += it.stepName to "${it.className}#${it.methodName}"
         }
         File(packagePath(task.project)).listFiles { _, name -> name.endsWith(".feature") }.forEach {
-            features = (features + featureParser.fromFile(it, stepMap)).sortedBy { it.name }
+            features = (features + featureParser.fromFile(it)).sortedBy { it.name }
         }
         testReportFiles(task.project).forEach { parsedTestReports += testReportParser.parse(it) }
+        NoCucumberReportGenerator(features, stepMap).run {
+            parsedTestReports.forEach {
+                println(fromParsed(it))
+            }
+        }
     }
 
     private fun testReportFiles(project: Project) = Paths.get(

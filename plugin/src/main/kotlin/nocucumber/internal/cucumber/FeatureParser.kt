@@ -1,10 +1,9 @@
 package nocucumber.internal.cucumber
 
-import org.gradle.api.GradleException
 import java.io.File
 
 internal class FeatureParser {
-    fun fromFile(source: File, stepMap: Map<String, String>): Feature {
+    fun fromFile(source: File): Feature {
         var featureName: String? = null
         var scenarios = listOf<Scenario>()
         var ongoingScenarioName: String? = null
@@ -18,10 +17,10 @@ internal class FeatureParser {
                     featureName = it.substringAfter("Feature: ")
                 }
                 it.startsWith("Scenario: ") -> {
-                    if (!scenarios.isEmpty()) {
-                        scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
+                    if (ongoingScenarioName != null) { // If it is not the first scenario
+                        scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!)
+                        ongoingStepName = null
                     }
-                    ongoingStepName = null
                     ongoingScenarioName = it.substringAfter("Scenario: ")
                 }
                 else -> {
@@ -31,12 +30,10 @@ internal class FeatureParser {
         }
         }
         // Add the last scenario since it is not finished by another one
-        scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
+        scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!)
         return Feature(featureName!!, scenarios)
     }
 
-    private fun buildScenario(scenarioName: String, stepName: String, stepMap: Map<String, String>)= Scenario(
-            scenarioName,
-            Step(stepMap[stepName] ?:
-                    throw GradleException("Could not find a mapped method for step $stepName")))
+    private fun buildScenario(scenarioName: String, stepName: String)=
+            Scenario(scenarioName, Step(stepName))
 }
