@@ -1,18 +1,18 @@
 package nocucumber.internal.testreports
 
 import org.simpleframework.xml.Attribute
-import org.simpleframework.xml.Element
-import org.simpleframework.xml.ElementArray
+import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 
 @Root(name = "testsuite", strict = false)
 internal data class ParsedTestReport(
         @field:Attribute(name = "timestamp")
         var timestamp: String,
-        @field:Element(name = "properties")
-        var properties: ParsedTestReportProperties,
-        @field:ElementArray(name = "testcase")
-        var testCases: Array<ParsedTestReportTestCase>) {
+        @field:ElementList(entry = "property")
+        var properties: List<ParsedTestReportProperty>,
+        @field:ElementList(entry = "testcase", inline = true)
+        var testCases: List<ParsedTestReportTestCase>) {
     @Suppress("unused")
-    constructor() : this("", ParsedTestReportProperties(), emptyArray<ParsedTestReportTestCase>())
+    constructor() : this(
+            "", mutableListOf<ParsedTestReportProperty>(), mutableListOf<ParsedTestReportTestCase>())
 }

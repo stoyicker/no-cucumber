@@ -19,7 +19,7 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
 
     override fun configuration(task: Task) {
         task.project.afterEvaluate {
-            task.setDependsOn(setOf("connectedAndroidTest"))
+            task.setMustRunAfter(mutableSetOf("connectedAndroidTest"))
         }
     }
 
