@@ -14,6 +14,10 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
 
     override fun name() = "noCucumberPrint"
 
+    override fun configuration(task: Task) {
+        task.setDependsOn(setOf(task.project.getTasksByName("connectedAndroidTest", false)))
+    }
+
     override fun action() = { task: Task ->
         Moshi.Builder()
                 .add(JsonStepAdapter())
