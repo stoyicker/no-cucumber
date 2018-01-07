@@ -43,15 +43,8 @@ apply plugin: 'no-cucumber-android'
 ```
 5. Make the magic happen:
 ```
-./gradlew noCucumberGenerate (or nCG for short)
+./gradlew connectedAndroidTest noCucumberPrint #(or nCP for short)
 ```
-6. Look for the generated ```.feature``` files in ```build/generated/source/kapt/debugAndroidTest/nocucumber```
-(or corresponding path if your project uses Java instead)!
-
-If you want both the features and their corresponding reports as of a new test run, you can run instead:
-```
-./gradlew nCG noCucumberPrint (or nCP for short)
-```
-no-cucumber will, in addition to what was described before, run all Espresso tests, and then parse the XML reports from 
-Espresso, the feature files and a generated mapping between @Steps and Espresso tests, and use the combined information 
-to create reports corresponding to each of the feature files.
+no-cucumber will generate your .feature files (look for them in your generated source folder), and then parse the XML 
+reports from Espresso, the feature files and a generated mapping between @Steps and Espresso tests, and use the combined 
+information to create reports corresponding to each of the feature files.
