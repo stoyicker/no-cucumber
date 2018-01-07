@@ -5,7 +5,9 @@ import org.simpleframework.xml.Root
 
 @Root(name = "property")
 internal data class ParsedTestReportProperty(
-        @Attribute(name = "name")
-        val name: String,
-        @Attribute(name = "value")
-        val value: String)
+        @field:Attribute(name = "name")
+        var name: String,
+        @field:Attribute(name = "value")
+        var value: String) {
+    constructor() : this("", "")
+}

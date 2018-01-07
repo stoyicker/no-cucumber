@@ -45,7 +45,7 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
 
     private fun testReportFiles(project: Project) = Paths.get(
             project.buildDir.absolutePath, "outputs", "androidTest-results", "connected")
-            .toAbsolutePath().toFile().listFiles { _, name -> name.endsWith("xml") }
+            .toAbsolutePath().toFile().listFiles { _, name -> name.endsWith(".xml") }
 
     private fun jsonStepCollectionFile(project: Project) =
             Paths.get(packagePath(project), "json", "steps.json").toAbsolutePath().toFile()

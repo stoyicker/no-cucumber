@@ -7,9 +7,12 @@ import org.simpleframework.xml.Root
 
 @Root(name = "testsuite")
 internal data class ParsedTestReport(
-        @Attribute(name = "timestamp")
-        val timestamp: String,
-        @Element(name = "properties")
-        val properties: ParsedTestReportProperties,
-        @ElementArray(name = "testcase")
-        val testCases: ParsedTestReportTestCase)
+        @field:Attribute(name = "timestamp")
+        var timestamp: Float,
+        @field:Element(name = "properties")
+        var properties: ParsedTestReportProperties,
+        @field:ElementArray(name = "testcase")
+        var testCases: Array<ParsedTestReportTestCase>) {
+    @Suppress("unused")
+    constructor() : this(0F, ParsedTestReportProperties(), emptyArray<ParsedTestReportTestCase>())
+}
