@@ -1,6 +1,7 @@
 package nocucumber.internal.testreports
 
 import org.simpleframework.xml.Attribute
+import org.simpleframework.xml.Element
 
 internal class ParsedTestReportTestCase(
         @field:Attribute(name = "name")
@@ -8,7 +9,9 @@ internal class ParsedTestReportTestCase(
         @field:Attribute(name = "classname")
         var className: String,
         @field:Attribute(name = "time")
-        var durationMs: Float) {
+        var durationMs: Float,
+        @field:Element(name = "failure", required = false)
+        var failure: String?) {
         @Suppress("unused")
-        constructor() : this("", "", 0F)
+        constructor() : this("", "", 0F, null)
 }
