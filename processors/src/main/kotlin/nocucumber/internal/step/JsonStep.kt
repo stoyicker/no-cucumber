@@ -1,11 +1,10 @@
 package nocucumber.internal.step
 
 import com.squareup.moshi.Json
-import java.util.*
 import javax.lang.model.element.Element
 import javax.lang.model.util.Elements
 
-internal data class JsonStep (
+internal class JsonStep (
         @Json(name = "step_name")
         val stepName: String,
         @Json(name = "name")
