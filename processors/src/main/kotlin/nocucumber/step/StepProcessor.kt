@@ -1,13 +1,11 @@
 package nocucumber.step
 
 import nocucumber.internal.NoCucumberProcessor
-import nocucumber.internal.StepIdToNameMap
 import nocucumber.internal.step.StepVerifier
 import nocucumber.internal.step.StepWriter
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.TypeElement
-import javax.tools.Diagnostic
 
 /**
  * Generates steps as described by the processed annotations.

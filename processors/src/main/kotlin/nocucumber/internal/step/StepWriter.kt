@@ -3,7 +3,6 @@ package nocucumber.internal.step
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import nocucumber.internal.Logger
-import nocucumber.internal.StepIdToNameMap
 import nocucumber.step.Step
 import javax.annotation.processing.Filer
 import javax.annotation.processing.Messager

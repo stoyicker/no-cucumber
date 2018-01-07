@@ -1,4 +1,4 @@
-package nocucumber.internal
+package nocucumber.internal.step
 
 internal object StepIdToNameMap {
     private var map = mapOf<String, String>()

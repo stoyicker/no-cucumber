@@ -1,7 +1,7 @@
 package nocucumber.internal.scenario
 
 import nocucumber.internal.Logger
-import nocucumber.internal.StepIdToNameMap
+import nocucumber.internal.step.StepIdToNameMap
 import nocucumber.scenario.Scenario
 import java.io.File
 import java.io.FileWriter
