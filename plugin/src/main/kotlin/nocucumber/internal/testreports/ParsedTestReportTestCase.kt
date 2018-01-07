@@ -4,7 +4,7 @@ import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root
 
 @Root(name = "testcase")
-internal class ParsedTestReportTestCase(
+internal data class ParsedTestReportTestCase(
         @Attribute(name = "name")
         val methodName: String,
         @Attribute(name = "classname")

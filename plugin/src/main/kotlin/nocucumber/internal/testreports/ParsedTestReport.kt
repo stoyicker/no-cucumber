@@ -6,7 +6,7 @@ import org.simpleframework.xml.ElementArray
 import org.simpleframework.xml.Root
 
 @Root(name = "testsuite")
-internal class ParsedTestReport(
+internal data class ParsedTestReport(
         @Attribute(name = "timestamp")
         val timestamp: String,
         @Element(name = "properties")

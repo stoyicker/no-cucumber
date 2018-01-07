@@ -4,6 +4,6 @@ import org.simpleframework.xml.ElementArray
 import org.simpleframework.xml.Root
 
 @Root(name = "properties")
-internal class ParsedTestReportProperties(
+internal data class ParsedTestReportProperties(
     @ElementArray(name = "property")
     val properties: Array<ParsedTestReportProperty>)
