@@ -7,5 +7,8 @@ internal data class NoCucumberDeviceReport(
         private val project: String,
         private val timestamp: String,
         private val featureReports: List<NoCucumberFeatureReport>) {
-    fun dumpToFile(file: File) = file.writeText(toString(), Charsets.UTF_8)
+    fun dumpToFile(file: File) = file.run {
+        createNewFile()
+        writeText(this@NoCucumberDeviceReport.toString(), Charsets.UTF_8)
+    }
 }
