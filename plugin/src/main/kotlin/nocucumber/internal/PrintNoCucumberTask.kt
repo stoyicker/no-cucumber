@@ -33,7 +33,10 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
             stepMap += "${it.className}#${it.methodName}" to it.stepName
         }
         File(packagePath(task.project)).list { _, name -> name.endsWith(".feature") }.forEach {
-            features = (features + featureParser.fromFile(File(it), stepMap)).sortedBy { it.name }
+            features = (features + featureParser.fromFile(
+                    Paths.get(packagePath(task.project), it).toAbsolutePath().toFile(),
+                    stepMap))
+                    .sortedBy { it.name }
         }
         features.forEach { println(it) }
     }

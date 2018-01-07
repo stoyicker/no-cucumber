@@ -8,8 +8,12 @@ internal class FeatureParser {
         var scenarios = listOf<Scenario>()
         var ongoingScenarioName: String? = null
         var ongoingStepName: String? = null
-        source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEach {
+        source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEachIndexed { index, it ->
             when {
+                index == size - 1 -> {
+                    // Last line, build the ongoing scenario
+                    buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
+                }
                 it.isBlank() || it.startsWith("#") -> {
                     // Skip the line, it is either blank or a comment
                 }
@@ -18,7 +22,7 @@ internal class FeatureParser {
                 }
                 it.startsWith("Scenario: ") -> {
                     if (!scenarios.isEmpty()) {
-                        scenarios += Scenario(ongoingScenarioName!!, Step(stepMap[ongoingStepName]!!))
+                        scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
                         ongoingStepName = null
                     }
                     ongoingScenarioName = it.substringAfter("Scenario: ")
@@ -31,4 +35,7 @@ internal class FeatureParser {
         }
         return Feature(featureName!!, scenarios)
     }
+
+    private fun buildScenario(scenarioName: String, stepName: String, stepMap: Map<String, String>) =
+            Scenario(scenarioName, Step(stepMap[stepName]!!))
 }
