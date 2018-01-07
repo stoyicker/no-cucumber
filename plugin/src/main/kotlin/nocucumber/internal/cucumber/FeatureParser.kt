@@ -9,26 +9,31 @@ internal class FeatureParser {
         var ongoingScenarioName: String? = null
         var ongoingStepName: String? = null
         source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEachIndexed { index, it ->
+            println("Line: $it")
             when {
                 index == size - 1 -> {
                     // Last line, build the ongoing scenario
-                    buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
+                    println("Last line, scenario name is $ongoingScenarioName and step is $ongoingStepName")
+                    scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
                 }
                 it.isBlank() || it.startsWith("#") -> {
                     // Skip the line, it is either blank or a comment
                 }
                 it.startsWith("Feature: ") -> {
+                    println("Found feature ${it.substringAfter("Feature: ")}")
                     featureName = it.substringAfter("Feature: ")
                 }
                 it.startsWith("Scenario: ") -> {
                     if (!scenarios.isEmpty()) {
                         scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
+                        println("Resetting stepname")
                         ongoingStepName = null
                     }
                     ongoingScenarioName = it.substringAfter("Scenario: ")
                 }
                 else -> {
                     ongoingStepName = if (ongoingStepName == null) { it } else { ongoingStepName + it }
+                    println("ongoingStepName just became $ongoingStepName")
                 }
             }
         }
@@ -37,5 +42,7 @@ internal class FeatureParser {
     }
 
     private fun buildScenario(scenarioName: String, stepName: String, stepMap: Map<String, String>) =
-            Scenario(scenarioName, Step(stepMap[stepName]!!))
+            Scenario(scenarioName, Step(stepMap[stepName]!!)).also {
+                print("Adding scenario $scenarioName with step ${stepMap[stepName]}")
+            }
 }
