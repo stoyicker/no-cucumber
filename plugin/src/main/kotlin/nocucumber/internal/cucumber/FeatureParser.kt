@@ -8,14 +8,9 @@ internal class FeatureParser {
         var scenarios = listOf<Scenario>()
         var ongoingScenarioName: String? = null
         var ongoingStepName: String? = null
-        source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEachIndexed { index, it ->
+        source.readLines(Charsets.UTF_8).run { map { it.trim() }.forEach { it ->
             println("Line: $it")
             when {
-                index == size - 1 -> {
-                    // Last line, build the ongoing scenario
-                    println("Last line, scenario name is $ongoingScenarioName and step is $ongoingStepName")
-                    scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
-                }
                 it.isBlank() || it.startsWith("#") -> {
                     // Skip the line, it is either blank or a comment
                 }
@@ -38,6 +33,8 @@ internal class FeatureParser {
             }
         }
         }
+        // Add the last scenario since it is not bound by another one
+        scenarios += buildScenario(ongoingScenarioName!!, ongoingStepName!!, stepMap)
         return Feature(featureName!!, scenarios)
     }
 
