@@ -5,7 +5,7 @@ import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 
 @Root(name = "testsuite", strict = false)
-internal data class ParsedTestReport(
+internal class ParsedTestReport(
         @field:Attribute(name = "timestamp")
         var timestamp: String,
         @field:ElementList(entry = "property")

@@ -41,7 +41,6 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
             features = (features + featureParser.fromFile(it, stepMap)).sortedBy { it.name }
         }
         testReportFiles(task.project).forEach { parsedTestReports += testReportParser.parse(it) }
-        parsedTestReports.forEach { println(it) }
     }
 
     private fun testReportFiles(project: Project) = Paths.get(

@@ -2,7 +2,7 @@ package nocucumber.internal.testreports
 
 import org.simpleframework.xml.Attribute
 
-internal data class ParsedTestReportTestCase(
+internal class ParsedTestReportTestCase(
         @field:Attribute(name = "name")
         var methodName: String,
         @field:Attribute(name = "classname")
