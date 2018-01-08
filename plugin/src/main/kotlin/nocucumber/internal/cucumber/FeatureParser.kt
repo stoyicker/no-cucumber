@@ -24,7 +24,7 @@ internal class FeatureParser {
                     ongoingScenarioName = it.substringAfter("Scenario: ")
                 }
                 else -> {
-                    ongoingStepName = if (ongoingStepName == null) { it } else { ongoingStepName + it }
+                    ongoingStepName = if (ongoingStepName == null) { it } else { "\n" + ongoingStepName + it }
                 }
             }
         }
