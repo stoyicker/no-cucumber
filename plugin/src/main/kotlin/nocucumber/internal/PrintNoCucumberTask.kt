@@ -43,9 +43,13 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
         }
         testReportFiles(task.project).forEach { parsedTestReports += testReportParser.parse(it) }
         NoCucumberReportGenerator(features, stepMap).run {
-            parsedTestReports.forEach { fromParsed(it).dumpToFile(
-                    Paths.get(testReportFolderPath(task.project).toAbsolutePath().toString(),
-                            "${it.properties.first { it.name == "device" }.value}.txt").toFile()) }
+            parsedTestReports.forEach {
+                Paths.get(testReportFolderPath(task.project).toAbsolutePath().toString(),
+                        "${it.properties.first { it.name == "device" }.value}.txt").toFile().apply {
+                    fromParsed(it).dumpToFile(this)
+                    println("Wrote report from device ${it.properties.first { it.name == "device" }.value} to ${toURI()}")
+                }
+            }
         }
     }
 

@@ -57,5 +57,7 @@ internal class ScenarioWriter(private val filer: Filer, messager: Messager) : Lo
             filer.createResource(
                     StandardLocation.SOURCE_OUTPUT,
                     "nocucumber",
-                    "${featureName.replace(" ", "_")}.feature")
+                    "${featureName.replace(" ", "_")}.feature").apply {
+                println("Writing feature file ${toUri()}")
+            }
 }
