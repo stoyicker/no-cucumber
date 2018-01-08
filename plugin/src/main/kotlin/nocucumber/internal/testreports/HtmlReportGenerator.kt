@@ -49,12 +49,30 @@ internal class HtmlReportGenerator {
                 HtmlReportGenerator::class.java
                         .getResource("/test-report-template/feature-report.html")
                         .readText(Charsets.UTF_8)
-        val featureReport = deviceReport.featureReports.joinToString(separator = "\n") {
-            featureReportTemplate
+        val report = deviceReport.featureReports.joinToString(separator = "\n") {
+            applyFeatureScenarioReplacement(it, featureReportTemplate
                     .replace("\${FEATURE_ID}", it.name.toLowerCase(Locale.ENGLISH).replace(" ", "_"))
-                    .replace("\${FEATURE_NAME}", it.name)
+                    .replace("\${FEATURE_NAME}", it.name))
         }
-        return template.replace("\${FEATURE_REPORT}", featureReport)
+        return template.replace("\${FEATURE_REPORT}", report)
+    }
+
+    private fun applyFeatureScenarioReplacement(featureReport: NoCucumberFeatureReport, template: String): String {
+        val featureReportTemplate =
+                HtmlReportGenerator::class.java
+                        .getResource("/test-report-template/feature-scenario.html")
+                        .readText(Charsets.UTF_8)
+        val report = featureReport.scenarioReports.joinToString(separator = "\n") {
+            featureReportTemplate
+                    .replace("\${SCENARIO_NAME}", it.name)
+                    .replace("\${STEP_NAME}", it.stepReport.name)
+                    .replace("\${DURATION_SECONDS}", "${it.stepReport.durationSeconds}")
+                    .replace("\${STEP_RESULT}", when (it.stepReport.result) {
+                        is Success -> "PASSED"
+                        is Failure -> "FAILED"
+                    })
+        }
+        return template.replace("\${FEATURE_SCENARIO}", report)
     }
 
     private fun applyFeatureIndexReplacement(deviceReport: NoCucumberDeviceReport, template: String): String {
