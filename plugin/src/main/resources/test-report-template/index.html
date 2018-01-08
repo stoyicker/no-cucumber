@@ -43,36 +43,7 @@
          <div class="container">
             <div class="row">
                <div class="span9">
-                  <section id="${FEATURE_ONE_ID}">
-                     <h3>${FEATURE_ONE_NAME}</h3>
-                     <div style="overflow-x: auto;">
-                        <table class="darkTable">
-                           <thead>
-                              <tr>
-                                 <th>Scenarios</th>
-                                 <th>Steps</th>
-                                 <th>Duration</th>
-                                 <th>Status</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>My scenario</td>
-                                 <td>my step<br /><br /><br /><br /><br /><br /><br /><br />with many lines</td>
-                                 <td>0.753s</td>
-                                 <td class="test-result">PASSED</td>
-                              </tr>
-                              <tr>
-                                 <td>My scenario</td>
-                                 <td>my step<br /><br /><br /><br /><br /><br /><br /><br />with many lines</td>
-                                 <td>0.753s</td>
-                                 <td class="test-result">FAILED</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     </table>
-                  </section>
+                  ${FEATURE_REPORT}
                </div>
                <div class="span3">
                   <div class="content-nav" data-spy="affix" data-offset-top="80">
@@ -82,7 +53,7 @@
                         </li>
                      </ul>
                      <ul class="nav nav-tabs nav-stacked primary">
-                        <li><a href="#${FEATURE_ONE_ID}">${FEATURE_ONE_NAME}</a></li>
+                        ${FEATURE_INDEX}
                      </ul>
                   </div>
                </div>
