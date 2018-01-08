@@ -6,6 +6,7 @@ import nocucumber.internal.cucumber.Feature
 import nocucumber.internal.cucumber.FeatureParser
 import nocucumber.internal.step.JsonStepAdapter
 import nocucumber.internal.step.JsonStepCollection
+import nocucumber.internal.testreports.HtmlReportGenerator
 import nocucumber.internal.testreports.NoCucumberReportGenerator
 import nocucumber.internal.testreports.ParsedTestReport
 import nocucumber.internal.testreports.XmlTestReportParser
@@ -16,6 +17,8 @@ import java.io.File
 import java.nio.file.Paths
 
 internal class PrintNoCucumberTask : NoCucumberTask() {
+    private val htmlReportGenerator = HtmlReportGenerator()
+
     override fun name() = "noCucumberPrint"
 
     override fun configuration(task: Task) {
@@ -45,9 +48,10 @@ internal class PrintNoCucumberTask : NoCucumberTask() {
         NoCucumberReportGenerator(features, stepMap).run {
             parsedTestReports.forEach {
                 Paths.get(testReportFolderPath(task.project).toAbsolutePath().toString(),
-                        "${it.properties.first { it.name == "device" }.value}.txt").toFile().apply {
-                    fromParsed(it).dumpToFile(this)
-                    println("Wrote report from device ${it.properties.first { it.name == "device" }.value} to ${toURI()}")
+                        "${it.properties.first { it.name == "device" }.value}.html").toFile().apply {
+                    val report = fromParsed(it)
+                    htmlReportGenerator.generate(report, this)
+                    println("Wrote report from device ${report.device} to ${toURI()}")
                 }
             }
         }
