@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>${PROJECT} - ${DEVICE}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="no-cucumber test report">
+      <meta name="apple-mobile-web-app-title" content="no-cucumber test report">
+      <meta name="application-name" content="no-cucumber test report">
+      <link href="static/bootstrap-combined.min.css" rel="stylesheet">
+      <link href="static/app.css" rel="stylesheet">
+      <link href="static/app-theme.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,300italic,100,100italic,300" rel="stylesheet" type="text/css">
+      <!--[if lt IE 9]><script src="static/html5shiv.min.js"></script><![endif]-->
+   </head>
+   <body data-target=".content-nav">
+      <header>
+         <div class="container">
+            <div class="row">
+               <div class="span5">
+                  <h1>${PROJECT} - ${DEVICE}</h1>
+               </div>
+               <div class="span7">
+                  <menu>
+                     <ul>
+                        <li><a href="http://github.com/stoyicker/no-cucumber" data-title="no-cucumber on GitHub" class="menu github"><img src="static/icon-github.png" alt="GitHub"/></a></li>
+                        <li><a href="https://www.linkedin.com/in/jorgediazbenitosoriano/" data-title="About the author" class="menu square" target="_blank"><img src="static/icon-linkedin.png" alt="Check out my profile on LinkedIn!"/></a></li>
+                     </ul>
+                  </menu>
+               </div>
+            </div>
+         </div>
+      </header>
+      <section id="subtitle">
+         <div class="container">
+            <div class="row">
+               <div class="span12">
+                  <h2>no-cucumber test report</h2>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section id="body">
+         <div class="container">
+            <div class="row">
+               <div class="span9">
+                  <section id="${FEATURE_ONE_ID}">
+                     <h3>${FEATURE_ONE_NAME}</h3>
+                     <div style="overflow-x: auto;">
+                        <table class="darkTable">
+                           <thead>
+                              <tr>
+                                 <th>Scenarios</th>
+                                 <th>Steps</th>
+                                 <th>Duration</th>
+                                 <th>Status</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>My scenario</td>
+                                 <td>my step<br /><br /><br /><br /><br /><br /><br /><br />with many lines</td>
+                                 <td>0.753s</td>
+                                 <td class="test-result">PASSED</td>
+                              </tr>
+                              <tr>
+                                 <td>My scenario</td>
+                                 <td>my step<br /><br /><br /><br /><br /><br /><br /><br />with many lines</td>
+                                 <td>0.753s</td>
+                                 <td class="test-result">FAILED</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     </table>
+                  </section>
+               </div>
+               <div class="span3">
+                  <div class="content-nav" data-spy="affix" data-offset-top="80">
+                     <ul class="nav nav-pills nav-stacked secondary">
+                        <li>
+                           <h4>Feature index</h4>
+                        </li>
+                     </ul>
+                     <ul class="nav nav-tabs nav-stacked primary">
+                        <li><a href="#${FEATURE_ONE_ID}">${FEATURE_ONE_NAME}</a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="span12 logo">
+                  <a href="https://www.linkedin.com/in/jorgediazbenitosoriano/" data-title="About the author" class="menu" target="_blank"><img src="static/logo-linkedin.png" alt="Check out my profile on LinkedIn!"/></a>
+               </div>
+            </div>
+         </div>
+      </section>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="static/bootstrap.min.js"></script>
+      <script src="static/jquery.smooth-scroll.min.js"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+      <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.2/dist/showdown.min.js"></script>
+      <script type="text/javascript">
+         $(function() {
+           // Spy on scroll position for real-time updating of current section.
+           $('body').scrollspy();
+         
+           // Use smooth-scroll for internal links.
+           $('a').smoothScroll();
+         
+           // Enable tooltips on the header nav image items.
+           $('.menu').tooltip({
+             placement: 'bottom',
+             trigger: 'hover',
+             container: 'body',
+             delay: {
+               show: 500,
+               hide: 0
+             }
+           });
+         });
+      </script>
+      <script type="text/javascript">
+         $(function() {
+            $('.test-result').each(function() {
+              var text = $(this).text();
+              if (text == 'PASSED') {
+                $(this).css('background-color', '#19B219');
+              } else if (text == 'FAILED') {
+                $(this).css('background-color', '#F1502A');
+              }
+           });
+         });
+      </script>
+   </body>
+</html>
