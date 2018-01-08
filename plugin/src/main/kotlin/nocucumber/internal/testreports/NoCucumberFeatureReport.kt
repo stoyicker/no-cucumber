@@ -1,5 +1,5 @@
 package nocucumber.internal.testreports
 
-internal data class NoCucumberFeatureReport(
-        private val name: String,
-        private val scenarioReports: List<NoCucumberScenarioReport>)
+internal class NoCucumberFeatureReport(
+        val name: String,
+        val scenarioReports: List<NoCucumberScenarioReport>)
