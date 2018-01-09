@@ -65,7 +65,7 @@ internal class HtmlReportGenerator {
         val report = featureReport.scenarioReports.joinToString(separator = "\n") {
             featureReportTemplate
                     .replace("\${SCENARIO_NAME}", it.name)
-                    .replace("\${STEP_NAME}", it.stepReport.name.replace("\n", "<br/>")
+                    .replace("\${STEP_NAME}", it.stepReport.name.replace("\n", "<br/>"))
                     .replace("\${DURATION_SECONDS}", "${it.stepReport.durationSeconds}")
                     .replace("\${STEP_RESULT}", when (it.stepReport.result) {
                         is Success -> "PASSED"
