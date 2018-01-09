@@ -23,7 +23,7 @@ internal class ScenarioVerifier(messager: Messager) : AnnotationVerifier<Scenari
             false
         }
         element.kind !in arrayOf(ElementKind.INTERFACE) -> {
-            err("Scenarios can only be defined in classes or interfaces", element)
+            err("Scenarios can only be defined in interfaces", element)
             false
         }
         else -> true
