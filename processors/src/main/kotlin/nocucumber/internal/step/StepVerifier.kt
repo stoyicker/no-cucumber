@@ -27,6 +27,12 @@ internal class StepVerifier(messager: Messager) : AnnotationVerifier<Step>(messa
             err("Steps must have as many ids as names", element)
             false
         }
+        annotation.names.any.let {
+            it.contains("\n") -> {
+                err("Steps cannot contain newlines: $it", element)
+                false
+            }
+        }
         annotation.ids.any { it in stepIdsFound.keys } -> {
             val step = annotation.ids.first { it in stepIdsFound.keys }
             err("Step with id $step already added by ${stepIdsFound[step]!!.apply {
